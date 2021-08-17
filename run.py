@@ -89,6 +89,13 @@ def add_new_customer(new_customer):
     print("Worksheet updated successfully.")
 
 
+def start_menu_existing_customer(values):
+    """
+    Will let the new customer enter all of there information
+    """
+    if values == "2":
+        existing_customer = {}
+
 def main():
     """
     Run all program functions
