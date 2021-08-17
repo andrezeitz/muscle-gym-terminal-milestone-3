@@ -28,7 +28,6 @@ def start_menu():
         if validate_start_menu(user_decide):
             break
     start_menu_new_customer(user_decide)
-                
 
 
 def validate_start_menu(values):
@@ -63,7 +62,7 @@ def start_menu_new_customer(values):
         print(f"Your last name is saved as {data_lastname}.\n")
 
         data_address = input("Please provide us with your adress: ")
-        new_customer["address"] = data_address   
+        new_customer["address"] = data_address
         print(f"Your adress is saved as {data_address}.\n")
 
         data_zipcode = input("Please provide us with your zip-code: ")
@@ -71,16 +70,13 @@ def start_menu_new_customer(values):
         print(f"Your zip-code is saved as {data_zipcode}.\n")
 
         data_phone = input("Please provide us with your phone number: ")
-        new_customer["phone"] = data_phone  
+        new_customer["phone"] = data_phone
         print(f"Your phone number is saved as {data_phone}.\n")
 
         data_email = input("Please provide us with your email adress: ")
         new_customer["email"] = data_email
         print(f"Your email adress is saved as {data_email}.\n")
-        
         return add_new_customer(new_customer)
-
-
 
 
 def add_new_customer(new_customer):
@@ -91,13 +87,6 @@ def add_new_customer(new_customer):
     worksheet_to_update = SHEET.worksheet("new_customer")
     worksheet_to_update.append_row([x for x in new_customer.values()])
     print("Worksheet updated successfully.")
-    
-
-
-
-
-
-
 
 
 def main():
@@ -105,8 +94,5 @@ def main():
     Run all program functions
     """
     start_menu()
-    add_new_customer()
-    
 
-
-main()    
+main()
