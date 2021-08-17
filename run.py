@@ -1,5 +1,6 @@
 import gspread
 from google.oauth2.service_account import Credentials
+from pprint import pprint
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -15,23 +16,24 @@ SHEET = GSPREAD_CLIENT.open('muscle_gym')
 
 def start_menu():
     """
-    Start
+    Start menu with 3 options
     """
     print("Hi. Welcome to Muscle Gym.\n")
     while True:
         user_decide = input("""
-        If you are a new customer please press 1.
-        If you are a existing customer please press 2.
+        If you want to registred as a new customer please press 1.
+        If you are a existing customer that want to know how much please press 2.
         If you are staff manager please press 3.
         """)
         if validate_start_menu(user_decide):
             break
-    start_menu_new_customer(user_decide)        
+    start_menu_new_customer(user_decide)
+                
 
 
 def validate_start_menu(values):
     """
-    Validate if a number is of 1, 2 or 3
+    Validate if a number is of 1, 2 or 3 and if not will send error message
     """
     try:
         if (int(values) < 1 or int(values) > 3):
@@ -45,108 +47,65 @@ def validate_start_menu(values):
     return True
 
 
-def start_menu_new_customer(value):
+def start_menu_new_customer(values):
     """
-    Check if 1,2 or 3 is pressed from the start menu
+    Will let the new customer enter all of there information
     """
-    if value == "1":
+    if values == "1":
+        new_customer = {}
+
         data_firstname = input("Please provide us with your first name: ")
+        new_customer["firstname"] = data_firstname
         print(f"Your first name is saved as {data_firstname}.\n")
 
         data_lastname = input("Please provide us with your last name: ")
+        new_customer["lastname"] = data_lastname
         print(f"Your last name is saved as {data_lastname}.\n")
 
-        data_adress = input("Please provide us with your adress: ")   
-        print(f"Your adress is saved as {data_adress}.\n")
+        data_address = input("Please provide us with your adress: ")
+        new_customer["address"] = data_address   
+        print(f"Your adress is saved as {data_address}.\n")
 
-        data_zip = input("Please provide us with your zip-code: ")
-        print(f"Your zip-code is saved as {data_zip}.\n")
+        data_zipcode = input("Please provide us with your zip-code: ")
+        new_customer["zipcode"] = data_zipcode
+        print(f"Your zip-code is saved as {data_zipcode}.\n")
 
-        data_phone = input("Please provide us with your phone number: ")     
+        data_phone = input("Please provide us with your phone number: ")
+        new_customer["phone"] = data_phone  
         print(f"Your phone number is saved as {data_phone}.\n")
 
         data_email = input("Please provide us with your email adress: ")
+        new_customer["email"] = data_email
         print(f"Your email adress is saved as {data_email}.\n")
         
-        return add_new_customer()
+        return add_new_customer(new_customer)
 
 
-def add_new_customer():
+
+
+def add_new_customer(new_customer):
     """
     Add new customers to Google Sheet
     """
     print("Saving your profil to the database...\n")
-    new_customer = SHEET.worksheet("new_customers")
+    worksheet_to_update = SHEET.worksheet("new_customer")
+    worksheet_to_update.append_row([x for x in new_customer.values()])
     print("Worksheet updated successfully.")
-    main()     
+    
 
 
-# def start_menu():
-#     """
-#     Start menu to be able to choose three different commands
-#     """
-#     print("Hi. Welcome to Muscle Gym.\n")
-#     print("If you are a new customer please press 1.\n")
-#     print("If you are a existing customer please press 2.\n")
-#     print("If you are staff please press 3.\n")
-
-#     number_decision = input("Enter your number here: ")
-#     while number_decision not in ["1", "2", "3"]:
-#             number_decision = input("Wrong number inserted. Please enter your number again: ")
-
-#     if number_decision == "1":
-#         new_customer()
-#     elif number_decision == "2":
-#         existing_customer()
-#     elif number_decision == "3":
-#         staff()
-                   
 
 
-# def validate_data(values):
 
 
-# def new_customer():
-#     """
-#     New customer can sign up with there information
-#     """
-#     while True:
-#         print("You are about to sign up as a new member.\n")
 
-#         data_firstname = input("Please provide us with your first name: ")
-#         print(f"Your first name is {new_customer_data}.\n")
-
-#         data_lastname = input("Please provide us with your last name: ")
-#         print(f"Your last name is {new_customer_data}.\n")
-
-#         data_adress = input("Please provide us with your adress: ")   
-#         print(f"Your adress is {new_customer_data}.\n")
-
-#         data_zip = input("Please provide us with your zip-code: ")
-#         print(f"Your zip-code is {new_customer_data}.\n")
-
-#         data_phone = input("Please provide us with your phone number: ")     
-#         print(f"Your phone number is {new_customer_data}.\n")
-
-#         data_email = input("Please provide us with your email adress: ")
-#         print(f"Your email adress is {new_customer_data}.\n")
-
-#         new_customer_data = data_info.split(",")
-
-#         if validate_data(new_customer_data):
-#             print("Data is valid")
-#             print (f"{data_firstname}"), print(f"{data_lastname}"), print(f"{data_adress}"), print(f"{data_zip}"), print(f"{data_phone}"), print(f"{data_email}")
-#             break
-
-#         return new_customer_data
-
-   
 
 def main():
     """
     Run all program functions
     """
     start_menu()
+    add_new_customer()
     
 
 
