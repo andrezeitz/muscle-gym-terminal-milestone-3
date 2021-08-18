@@ -94,15 +94,15 @@ def add_new_customer(new_customer):
 
 def start_menu_calculate(values):
     """
-    Will let the customer calculate there BMR
+    Will let the customer calculate there BMR if they engage in no activity for that day
     """
     if values == "2":
         age = int(input("Please enter your age: "))
         print(f"Your age is saved as {age}.\n")
-        weight = int(input("Please enter your weight: "))
-        print(f"Your weight is saved as {weight}.\n")
-        height = int(input("Please enter your height: "))
+        height = int(input("Please enter your height in (cm): "))
         print(f"Your height is saved as {height}.\n")
+        weight = int(input("Please enter your weight in (kg): "))
+        print(f"Your weight is saved as {weight}.\n")
         male_female = input("Please enter (M) for male or (F) for female: ")
 
 
@@ -117,7 +117,7 @@ def start_menu_calculate(values):
 
 def calculate_activity(bmr):
     """
-    Let the customer decide on what activity scale they are on and then calculate there BMR from that
+    Will let the customer decide what activity scale they are on then it will estimate how many calories for maintaining there current weight
     """
     print(
         """
@@ -140,8 +140,7 @@ def calculate_activity(bmr):
     elif activity_level == 5:
         activity_index = 1.9
     calculate_activity_calories = int(bmr * activity_index)
-    print("If you want to maintain your correct weight you need " + str(calculate_activity_calories) + " calories a day.")
-        
+    print(f"Summary: Your body will burn {bmr} each day if you engage in no activity for that day. The estimate for maintaining your current weight (based upon your chosen activity level) is {calculate_activity_calories}. This calculation used the Mifflin - St Jeor equation.")
 
 
 def main():
