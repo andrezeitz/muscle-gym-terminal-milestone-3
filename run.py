@@ -153,7 +153,7 @@ def start_menu_calculate_bmi(values):
     Will let the customer calculate there BMI if they engage in no activity for that day
     """
     if values == "3":
-        height = float(input("Please enter your height in (cm): "))
+        height = float(input("Please enter your height in (meter): "))
         print(f"Your height is saved as {height}.\n")
         weight = int(input("Please enter your weight in (kg): "))
         print(f"Your weight is saved as {weight}.\n")
@@ -161,8 +161,8 @@ def start_menu_calculate_bmi(values):
 
         bmi_1 = float((weight / height))
         bmi_2 = float((bmi_1 / height))
-        print(bmi_1)
-        print(bmi_2)
+        round_bmi = round(bmi_2, 2)
+        print(f"Your BMI is {round_bmi}.")
 
 
 
