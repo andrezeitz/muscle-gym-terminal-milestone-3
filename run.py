@@ -22,12 +22,13 @@ def start_menu():
     while True:
         user_decide = input("""
         If you want to registred as a new customer please press 1.
-        If you are a existing customer that want to know how much please press 2.
+        If you want to calculate your BMR please press 2.
         If you are staff manager please press 3.
         """)
         if validate_start_menu(user_decide):
             break
     start_menu_new_customer(user_decide)
+    start_menu_calculate(user_decide)
 
 
 def validate_start_menu(values):
@@ -89,17 +90,26 @@ def add_new_customer(new_customer):
     print("Worksheet updated successfully.")
 
 
-def start_menu_existing_customer(values):
+def start_menu_calculate(values):
     """
-    Will let the new customer enter all of there information
+    Will let the customer calculate how much they pay for each day they go to gym
     """
     if values == "2":
-        existing_customer = {}
+        age = int(input("Please enter your age: "))
+        print(f"Your age is saved as {age}.\n")
+        weight = int(input("Please enter your weight: "))
+        print(f"Your weight is saved as {weight}.\n")
+        height = int(input("Please enter your height: "))
+        print(f"Your height is saved as {height}.\n")
+        male_female = input("Please enter (M) for male or (F) for female: ")
+        
+
 
 def main():
     """
     Run all program functions
     """
     start_menu()
+
 
 main()
