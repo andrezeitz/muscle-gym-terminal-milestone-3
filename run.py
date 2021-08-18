@@ -20,11 +20,13 @@ def start_menu():
     """
     print("Hi. Welcome to Muscle Gym.\n")
     while True:
-        user_decide = input("""
+        user_decide = input(
+        """
         If you want to registred as a new customer please press 1.
         If you want to calculate your BMR please press 2.
         If you are staff manager please press 3.
-        """)
+        """
+        )
         if validate_start_menu(user_decide):
             break
     start_menu_new_customer(user_decide)
@@ -92,7 +94,7 @@ def add_new_customer(new_customer):
 
 def start_menu_calculate(values):
     """
-    Will let the customer calculate how much they pay for each day they go to gym
+    Will let the customer calculate there BMR
     """
     if values == "2":
         age = int(input("Please enter your age: "))
@@ -102,6 +104,43 @@ def start_menu_calculate(values):
         height = int(input("Please enter your height: "))
         print(f"Your height is saved as {height}.\n")
         male_female = input("Please enter (M) for male or (F) for female: ")
+
+
+        #BMR Calculator https://www.thecalculatorsite.com/health/bmr-calculator.php
+        if male_female == "M":
+            bmr = int((10 * weight) + (6.25 * height) - (5 * age) + 5)
+        elif male_female == "F":
+            bmr = int((10 * weight) + (6.25 * height) - (5 * age) - 161)
+        print("Your BMR is " + str(bmr) + ".")
+        return calculate_activity(bmr)
+
+
+def calculate_activity(bmr):
+    """
+    Let the customer decide on what activity scale they are on and then calculate there BMR from that
+    """
+    print(
+        """
+        1. If you are sedentary (little or no exercise)
+        2. If you are lightly active (light exercise or sports 1-3 days/week)
+        3. If you are moderately active (moderate exercise 3-5 days/week)
+        4. If you are very active (hard exercise 6-7 days/week)
+        5. If you are super active (very hard exercise and a physical job)
+        """
+    )
+    activity_level = int(input("Select your activity level (1-5) "))
+    if activity_level == 1:
+        activity_index = 1.2
+    elif activity_level == 2:
+        activity_index = 1.375
+    elif activity_level == 3:
+        activity_index = 1.46
+    elif activity_level == 4:
+        activity_index = 1.725
+    elif activity_level == 5:
+        activity_index = 1.9
+    calculate_activity_calories = int(bmr * activity_index)
+    print("If you want to maintain your correct weight you need " + str(calculate_activity_calories) + " calories a day.")
         
 
 
@@ -110,6 +149,8 @@ def main():
     Run all program functions
     """
     start_menu()
+    values = validate_start_menu
+    bmr = start_menu_calculate(values)
 
 
 main()
