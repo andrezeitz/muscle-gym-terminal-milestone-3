@@ -108,8 +108,7 @@ def start_menu_calculate_bmr(values):
         print(f"Your weight is saved as {weight}.\n")
         male_female = input("Please enter (M) for male or (F) for female: ")
 
-
-        #BMR Calculator took the formula from https://www.thecalculatorsite.com/health/bmr-calculator.php
+        # BMR Calculator took the formula from https://www.thecalculatorsite.com/health/bmr-calculator.php
         if male_female == "M":
             bmr = int((10 * weight) + (6.25 * height) - (5 * age) + 5)
         elif male_female == "F":
@@ -150,7 +149,7 @@ def calculate_activity(bmr):
 
 def start_menu_calculate_bmi(values):
     """
-    Will let the customer calculate there BMI if they engage in no activity for that day
+    Will let the customer calculate there BMI
     """
     if values == "3":
         height = float(input("Please enter your height in (meter): "))
@@ -163,6 +162,20 @@ def start_menu_calculate_bmi(values):
         bmi_2 = float((bmi_1 / height))
         round_bmi = round(bmi_2, 2)
         print(f"Your BMI is {round_bmi}.")
+        
+        if round_bmi < 18.5:
+            print("BMI of less than 18.5 indicates that you are underweight")
+        elif 18.5 <= round_bmi <= 24.9:
+            print("A BMI of 18.5 - 24.9 indicates that you are at a healthy weight for your height.")
+        elif 25 <= round_bmi <= 29.9:
+            print("A BMI of 25 - 29.9 indicates that you are slightly overweight.")
+        elif 30 <= round_bmi <= 34.9:
+            print("A BMI of over 30 indicates that you are moderately obese")
+        elif 35 <= round_bmi <= 39.9:
+            print("A BMI of over 35 indicates that you are severely obese")
+        elif round_bmi > 40:
+            print("A BMI of over 40 indicates that you are very severely obese")        
+
 
 
 
