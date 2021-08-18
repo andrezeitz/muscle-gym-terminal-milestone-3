@@ -1,4 +1,5 @@
 import gspread
+import math
 from google.oauth2.service_account import Credentials
 from pprint import pprint
 
@@ -23,22 +24,24 @@ def start_menu():
         user_decide = input(
         """
         If you want to registred as a new customer please press 1.
-        If you want to calculate your BMR please press 2.
-        If you are staff manager please press 3.
+        If you want to calculate your Basal Metabolic Rate (BMR) please press 2.
+        If you want to calculate your Body Mass Index (BMI) please press 3
+        If you are staff manager please press 4.
         """
         )
         if validate_start_menu(user_decide):
             break
     start_menu_new_customer(user_decide)
-    start_menu_calculate(user_decide)
+    start_menu_calculate_bmr(user_decide)
+    start_menu_calculate_bmi(user_decide)
 
 
 def validate_start_menu(values):
     """
-    Validate if a number is of 1, 2 or 3 and if not will send error message
+    Validate if a number is of 1, 2, 3 or 4 and if not will send error message
     """
     try:
-        if (int(values) < 1 or int(values) > 3):
+        if (int(values) < 1 or int(values) > 4):
             raise ValueError(
                 f"Please enter a number between 1 and 3, you entered {values}"
             )
@@ -92,7 +95,7 @@ def add_new_customer(new_customer):
     print("Worksheet updated successfully.")
 
 
-def start_menu_calculate(values):
+def start_menu_calculate_bmr(values):
     """
     Will let the customer calculate there BMR if they engage in no activity for that day
     """
@@ -106,7 +109,7 @@ def start_menu_calculate(values):
         male_female = input("Please enter (M) for male or (F) for female: ")
 
 
-        #BMR Calculator https://www.thecalculatorsite.com/health/bmr-calculator.php
+        #BMR Calculator took the formula from https://www.thecalculatorsite.com/health/bmr-calculator.php
         if male_female == "M":
             bmr = int((10 * weight) + (6.25 * height) - (5 * age) + 5)
         elif male_female == "F":
@@ -117,7 +120,8 @@ def start_menu_calculate(values):
 
 def calculate_activity(bmr):
     """
-    Will let the customer decide what activity scale they are on then it will estimate how many calories for maintaining there current weight
+    Will let the customer decide what activity scale they are on, then it will
+    estimate how many calories for maintaining there current weight
     """
     print(
         """
@@ -139,8 +143,27 @@ def calculate_activity(bmr):
         activity_index = 1.725
     elif activity_level == 5:
         activity_index = 1.9
+
     calculate_activity_calories = int(bmr * activity_index)
     print(f"Summary: Your body will burn {bmr} each day if you engage in no activity for that day. The estimate for maintaining your current weight (based upon your chosen activity level) is {calculate_activity_calories}. This calculation used the Mifflin - St Jeor equation.")
+
+
+def start_menu_calculate_bmi(values):
+    """
+    Will let the customer calculate there BMI if they engage in no activity for that day
+    """
+    if values == "3":
+        height = float(input("Please enter your height in (cm): "))
+        print(f"Your height is saved as {height}.\n")
+        weight = int(input("Please enter your weight in (kg): "))
+        print(f"Your weight is saved as {weight}.\n")
+        athletic = input("Do you have a athletic body? Yes(Y) No(N): ")
+
+        bmi_1 = float((weight / height))
+        bmi_2 = float((bmi_1 / height))
+        print(bmi_1)
+        print(bmi_2)
+
 
 
 def main():
@@ -149,7 +172,7 @@ def main():
     """
     start_menu()
     values = validate_start_menu
-    bmr = start_menu_calculate(values)
+    bmr = start_menu_calculate_bmr(values)
 
 
 main()
