@@ -23,10 +23,11 @@ def start_menu():
     while True:
         user_decide = input(
         """
-        If you want to registred as a new customer please press 1.
+        If you want to registered as a new customer please press 1.
         If you want to calculate your Basal Metabolic Rate (BMR) please press 2.
         If you want to calculate your Body Mass Index (BMI) please press 3
-        If you are staff manager please press 4.
+        If you want to calculate the membership price on how many times you train please press 4.
+        If you are staff manager please press 5.
         """
         )
         if validate_start_menu(user_decide):
@@ -34,16 +35,17 @@ def start_menu():
     start_menu_new_customer(user_decide)
     start_menu_calculate_bmr(user_decide)
     start_menu_calculate_bmi(user_decide)
+    start_menu_calculate_membership(user_decide)
 
 
 def validate_start_menu(values):
     """
-    Validate if a number is of 1, 2, 3 or 4 and if not will send error message
+    Validate if a number is of 1, 2, 3, 4 or 5 and if not will send error message
     """
     try:
-        if (int(values) < 1 or int(values) > 4):
+        if (int(values) < 1 or int(values) > 5):
             raise ValueError(
-                f"Please enter a number between 1 and 3, you entered {values}"
+                f"Please enter a number between 1 and 5, you entered {values}"
             )
     except ValueError as e:
         print(f"Invalid number: {e}, please try again.\n")
@@ -71,11 +73,11 @@ def start_menu_new_customer(values):
         new_customer["address"] = data_address
         print(f"Your adress is saved as {data_address}.\n")
 
-        data_zipcode = input("Please provide us with your zip-code: ")
+        data_zipcode = int(input("Please provide us with your zip-code: "))
         new_customer["zipcode"] = data_zipcode
         print(f"Your zip-code is saved as {data_zipcode}.\n")
 
-        data_phone = input("Please provide us with your phone number: ")
+        data_phone = int(input("Please provide us with your phone number: "))
         new_customer["phone"] = data_phone
         print(f"Your phone number is saved as {data_phone}.\n")
 
@@ -108,7 +110,7 @@ def start_menu_calculate_bmr(values):
         print(f"Your weight is saved as {weight}.\n")
         male_female = input("Please enter (M) for male or (F) for female: ")
 
-        # BMR Calculator took the formula from https://www.thecalculatorsite.com/health/bmr-calculator.php
+        # BMR Calculator I took the formula from https://www.thecalculatorsite.com/health/bmr-calculator.php
         if male_female == "M":
             bmr = int((10 * weight) + (6.25 * height) - (5 * age) + 5)
         elif male_female == "F":
@@ -131,6 +133,7 @@ def calculate_activity(bmr):
         5. If you are super active (very hard exercise and a physical job)
         """
     )
+    # BMR Calculator I took the formula from https://www.thecalculatorsite.com/health/bmr-calculator.php
     activity_level = int(input("Select your activity level (1-5) "))
     if activity_level == 1:
         activity_index = 1.2
@@ -144,6 +147,7 @@ def calculate_activity(bmr):
         activity_index = 1.9
 
     calculate_activity_calories = int(bmr * activity_index)
+    print("Calculating your BMR result...")
     print(f"Summary: Your body will burn {bmr} each day if you engage in no activity for that day. The estimate for maintaining your current weight (based upon your chosen activity level) is {calculate_activity_calories}. This calculation used the Mifflin - St Jeor equation.")
 
 
@@ -151,16 +155,17 @@ def start_menu_calculate_bmi(values):
     """
     Will let the customer calculate there BMI
     """
+    # BMI Calculator I took the formula from https://www.thecalculatorsite.com/health/bmicalculator.php
     if values == "3":
         height = float(input("Please enter your height in (meter): "))
         print(f"Your height is saved as {height}.\n")
         weight = int(input("Please enter your weight in (kg): "))
         print(f"Your weight is saved as {weight}.\n")
-        athletic = input("Do you have a athletic body? Yes(Y) No(N): ")
-
+        #Calculate BMI
         bmi_1 = float((weight / height))
         bmi_2 = float((bmi_1 / height))
         round_bmi = round(bmi_2, 2)
+        print("Calculating your BMI result...")
         print(f"Your BMI is {round_bmi}.")
         
         if round_bmi < 18.5:
@@ -175,6 +180,31 @@ def start_menu_calculate_bmi(values):
             print("A BMI of over 35 indicates that you are severely obese")
         elif round_bmi > 40:
             print("A BMI of over 40 indicates that you are very severely obese")        
+
+
+def start_menu_calculate_membership(values):
+    """
+    Calculate
+    """
+    if values == "4":
+        print("We have two memberships. Silver (30€) and Gold (50€)")
+        print("Let's see which membership is best suited for you...")
+        times_week = int(input("How many times per week are you going to train at our gym? "))
+        #Calculate per month
+        times_month = (times_week * 4)
+        calculate_silver = round(30 / times_month, 2)
+        calculate_gold = round(50 / times_month, 2)
+        print(f"Silver membership will cost you {calculate_silver} and gold membership {calculate_gold} each time you visit the gym")
+
+        if times_week < 2:
+            print(f"Okay, if you only train {times_week} time per week we recommend you to choose the silver membership.")
+        elif 2 <= times_week <= 5:
+            print(f"Cool, if you train {times_week} times per week we recommend you either the silver or gold membership")
+        elif times_week > 5:
+            print(f"Wow, if you train as much as {times_week} we recommend you the gold membership")
+
+
+
 
 
 
