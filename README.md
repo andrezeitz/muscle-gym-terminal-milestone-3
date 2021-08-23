@@ -1,45 +1,73 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Muscle Gym Terminal
 
-Welcome andrezeitz,
+This app is designed to allow people to registred themself for a memebership at Muscle Gym. Customers can also calculate how much the membership will cost per each time they are visiting the gym. There is a BMI calculator to check on what level there BMI is right now. It's also possible to check how many calories they burn each day from a BMR calculator.
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use.
+# Features
+* Registred as a new member
+  * Customers will be able to registred themself with inside the terminal.
 
-## Gitpod Reminders
+* Calculate membership price
+  * Customer is able to calculate price per traning sessions
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+* Calculate your BMR (Basal Metabolic Rate)
+  * Customer is able to calculate there daily calories burn rate
 
-`python3 -m http.server`
+* Calculate your BMI (Body Mass Index)
+  * Customer is able to calculate there body type scale
 
-A blue button should appear to click: *Make Public*,
+There are validators to check firstly that the user only enter a number between 1 and 5
 
-Another blue button should appear to click: *Open Browser*.
+# How to Use the app
+1. When the app finishes loading read the instructions the first part is the most important as it ask you to choose between 5 different numbers.
+2. After choosing the number just follow the instructions as they are on screen
+3. If you need to start again simply click on the run app button at the top
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+# Testing
+How I have tested the code:
 
-A blue button should appear to click: *Make Public*,
+* The python code has been run through the Python pep8 validator
+* I have also run the code through many cycles adding in different values and checking that the output is as expected.
 
-Another blue button should appear to click: *Open Browser*.
+## Bugs
+I had this problem to get the correct return value on the first bmr function.
+![Skärmavbild 2021-08-18 kl  11 48 16](https://user-images.githubusercontent.com/85236391/130408610-ac10886e-c73b-4e8d-87f8-4a26a7f207ed.png)
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+I fixed it by change the return value inside start_menu_calculate(values) from ”return bmr” to instead use ”return calculate_activity(bmr)” and made the bmr readable inside the new function.
 
-## Updates Since The Instructional Video
+# Technologies
+[Python](https://en.wikipedia.org/wiki/Python_(programming_language)
+[Heroku](https://en.wikipedia.org/wiki/Heroku)
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+# Deployment
+1. Ensure all the dependencies are included by adding them to the requirements.txt file by running the following command in the terminal: pip3 freeze > requirements.tx
+2. Ensure the project has been fully committed and pushed to git
+3. Go to your heroku account, if you don't have one create one
+4. On the home screen click on the create new app button
+5. Enter a name for the project and select your region to the correct region.
+6. On the next screen select settings
+7. Go to config vars and click reveal config vars
+8. Switch to the program file and where you are keeping your credentials copy these and then on heroku enter a name for the key and paste the code into the config vars value box and click add
+9. Now scroll down to buildPacks and click add build packs
+10. First select python and click save changes
+11. Click back into build packs and choose node.js and click save again
+12. Ensure that the Python build pack is at the top of the list you are abe to drag and drop if you need to rearrange
+13. Now select deploy
+14. From the deployment method select GitHub
+15. Then click on the connect to github button that appears
+16. Click into the search box and search for the project name
+17. Once located select connect
+18. Then click deploy branch, this will then be shown in the box below
+19. You can the click view to show the app in a browser
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
+The program can be deployed automatically but i have chosen to keep it as a manual deploy so i can ensure that while i am testing and have no intention of adding more to the code currently it is better to deploy it manually meaning returning to the screen and clicking deploy branch each time you want to make any changes.
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
+## Cloning
+How to clone this repository.
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
-
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
-
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
-
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
-
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
-
---------
-
-Happy coding!
+* On GitHub go to the main page of the Repository.
+* Above the list of files click the code button with the drop-down arrow.
+* To clone the repository using HTTPS, under "Clone with HTTPS", click on the clipboard.
+* Open the Git Bash terminal.
+* Change the current working directory to the location where you want the cloned directory.
+* Type git clone, and then paste the URL you copied earlier from step 3.
+* Press Enter to create your local clone.
