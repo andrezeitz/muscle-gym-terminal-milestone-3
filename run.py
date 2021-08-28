@@ -8,7 +8,7 @@ SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
     "https://www.googleapis.com/auth/drive"
-    ]
+]
 
 CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
@@ -18,18 +18,18 @@ SHEET = GSPREAD_CLIENT.open('muscle_gym')
 
 def start_menu():
     """
-    Start menu with 3 options
-    """
+ Start menu with 3 options
+ """
     print("Hi. Welcome to Muscle Gym.\n")
     while True:
         user_decide = input(
-        """
-        If you want to registered as a new customer please press 1.
-        If you want to calculate the membership price on how many times you train please press 2.
-        If you want to calculate your Body Mass Index (BMI) please press 3
-        If you want to calculate your Basal Metabolic Rate (BMR) please press 4.
-        If you are staff manager please press 5.
-        """
+            """
+   If you want to registered as a new customer please press 1.
+   If you want to calculate the membership price on how many times you train please press 2.
+   If you want to calculate your Body Mass Index (BMI) please press 3
+   If you want to calculate your Basal Metabolic Rate (BMR) please press 4.
+   If you want to exit please press 5
+   """
         )
         if validate_start_menu(user_decide):
             break
@@ -37,13 +37,13 @@ def start_menu():
     start_menu_calculate_bmr(user_decide)
     start_menu_calculate_bmi(user_decide)
     start_menu_calculate_membership(user_decide)
-    start_menu_manager(user_decide)
+    #start_menu_manager(user_decide)
 
 
 def validate_start_menu(values):
     """
-    Validate if a number is of 1, 2, 3, 4 or 5 and if not will send error message
-    """
+ Validate if a number is of 1, 2, 3, 4 or 5 and if not will send error message
+ """
     try:
         if (int(values) < 1 or int(values) > 5):
             raise ValueError(
@@ -60,16 +60,18 @@ regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
 
 
 def check(email):
-    if (re.search(regex,email)):
+    if (re.search(regex, email)):
         print("Valid Email")
+        return True
     else:
         print("Invalid Email")
+        return False
 
-        
+
 def start_menu_new_customer(values):
     """
-    Will let the new customer enter all of there information
-    """
+ Will let the new customer enter all of there information
+ """
     if values == "1":
         new_customer = {}
 
@@ -94,8 +96,13 @@ def start_menu_new_customer(values):
         print(f"Your phone number is saved as {data_phone}.\n")
 
         if __name__ == "__main__":
-            email = input("Please provide us with your email adress: ")
-            check(email)
+
+            while True:
+                email = input("Please provide us with your email adress: ")
+                if check(email):
+                    break
+                else:
+                    continue
             new_customer["email"] = email
             print(f"Your email adress is saved as {email}.\n")
             return add_new_customer(new_customer)
@@ -103,22 +110,22 @@ def start_menu_new_customer(values):
 
 def add_new_customer(new_customer):
     """
-    Add new customers to Google Sheet
-    """
+ Add new customers to Google Sheet
+ """
     print("Saving your profil to the database...\n")
     worksheet_to_update = SHEET.worksheet("new_customer")
     worksheet_to_update.append_row([x for x in new_customer.values()])
     print("Worksheet updated successfully.")
-
+    start_menu()
 
 def validate_times_week(times_week):
     """
-    Validate weeks
-    """
+ Validate weeks
+ """
     try:
         if (int(times_week) < 1 or int(times_week) > 7):
             raise ValueError(
-                f"Please enter a number between 1 and 7, you entered"
+                f"Please enter a number between 1 and 7"
             )
     except ValueError as e:
         print(f"Invalid number: {e}, please try again.\n")
@@ -129,31 +136,40 @@ def validate_times_week(times_week):
 
 def start_menu_calculate_membership(values):
     """
-    Calculate how much the membership will cost per day
-    """
+ Calculate how much the membership will cost per day
+ """
     if values == "2":
         print("We have two memberships. Silver (30€) and Gold (50€)")
         print("Let's see which membership is best suited for you...")
-        times_week = int(input("How many times per week are you going to train at our gym? "))
- 
-        #Calculate per month
+        times_week = 0
+        while True:
+            try:
+                times_week = int(input("How many times per week are you going to train at our gym? "))
+                break
+            except ValueError:
+                print("Invalid input. Try again.")
+
+        # Calculate per month
         times_month = (times_week * 4)
         calculate_silver = round(30 / times_month, 2)
         calculate_gold = round(50 / times_month, 2)
-        print(f"Silver membership will cost you {calculate_silver}€ and gold membership {calculate_gold}€ each time you visit the gym")
+        print(
+            f"Silver membership will cost you {calculate_silver}€ and gold membership {calculate_gold}€ each time you visit the gym")
 
         if times_week < 3:
-            print(f"Okay, if you only train {times_week} time per week we recommend you to choose the silver membership.")
+            print(
+                f"Okay, if you only train {times_week} time per week we recommend you to choose the silver membership.")
         elif 2 <= times_week <= 4:
-            print(f"Cool, if you train {times_week} times per week we recommend you either the silver or gold membership")
+            print(
+                f"Cool, if you train {times_week} times per week we recommend you either the silver or gold membership")
         elif times_week > 5:
             print(f"Wow, if you train as much as {times_week} times we recommend you the gold membership")
-
+        start_menu()
 
 def start_menu_calculate_bmr(values):
     """
-    Will let the customer calculate there BMR if they engage in no activity for that day
-    """
+ Will let the customer calculate there BMR if they engage in no activity for that day
+ """
     if values == "4":
         while True:
             try:
@@ -182,8 +198,14 @@ def start_menu_calculate_bmr(values):
             else:
                 break
         print(f"Your weight is saved as {weight}.\n")
-        male_female = input("Please enter (M) for male or (F) for female: ")
-
+        male_female = "M"
+        while True:
+            male_female = input("Please enter (M) for male or (F) for female: ")
+            if male_female.upper() == "M" or male_female.upper() == "F":
+                break
+            else:
+                print("Invalid input. Try again.")
+        male_female = male_female.upper()
         # BMR Calculator I took the formula from https://www.thecalculatorsite.com/health/bmr-calculator.php
         if male_female == "M":
             bmr = int((10 * weight) + (6.25 * height) - (5 * age) + 5)
@@ -193,38 +215,32 @@ def start_menu_calculate_bmr(values):
         return calculate_activity(bmr)
 
 
-def validate_activity_level(activity_level):
-    """
-    Validate weeks
-    """
-    try:
-        if (int(activity_level) < 1 or int(activity_level) > 5):
-            raise UnboundLocalError(
-                f"Please enter a number between 1 and 5"
-            )
-    except UnboundLocalError as e:
-        print(f"Invalid number: {e}, please try again.\n")
-        return False
-
-    return True
-
-
 def calculate_activity(bmr):
     """
-    Will let the customer decide what activity scale they are on, then it will
-    estimate how many calories for maintaining there current weight
-    """
+ Will let the customer decide what activity scale they are on, then it will
+ estimate how many calories for maintaining there current weight
+ """
     print(
         """
-        1. If you are sedentary (little or no exercise)
-        2. If you are lightly active (light exercise or sports 1-3 days/week)
-        3. If you are moderately active (moderate exercise 3-5 days/week)
-        4. If you are very active (hard exercise 6-7 days/week)
-        5. If you are super active (very hard exercise and a physical job)
-        """
+  1. If you are sedentary (little or no exercise)
+  2. If you are lightly active (light exercise or sports 1-3 days/week)
+  3. If you are moderately active (moderate exercise 3-5 days/week)
+  4. If you are very active (hard exercise 6-7 days/week)
+  5. If you are super active (very hard exercise and a physical job)
+  """
     )
     # BMR Calculator I took the formula from https://www.thecalculatorsite.com/health/bmr-calculator.php
-    activity_level = int(input("Select your activity level (1-5) "))
+    activity_level = 0
+    while True:
+        try:
+            activity_level = int(input("Select your activity level (1-5) "))
+            if activity_level >= 1 and activity_level <= 5:
+                break
+            else:
+                print("Activity level must be between 1-5. Try again.")
+        except:
+            print("Invalid input. Try again.")
+
     if activity_level == 1:
         activity_index = 1.2
     elif activity_level == 2:
@@ -238,13 +254,14 @@ def calculate_activity(bmr):
 
     calculate_activity_calories = int(bmr * activity_index)
     print("Calculating your BMR result...")
-    print(f"Summary: Your body will burn {bmr} each day if you engage in no activity for that day. The estimate for maintaining your current weight (based upon your chosen activity level) is {calculate_activity_calories}. This calculation used the Mifflin - St Jeor equation.")
-
+    print(
+        f"Summary: Your body will burn {bmr} each day if you engage in no activity for that day. The estimate for maintaining your current weight (based upon your chosen activity level) is {calculate_activity_calories}. This calculation used the Mifflin - St Jeor equation.")
+    start_menu()
 
 def start_menu_calculate_bmi(values):
     """
-    Will let the customer calculate there BMI
-    """
+ Will let the customer calculate there BMI
+ """
     # BMI Calculator I took the formula from https://www.thecalculatorsite.com/health/bmicalculator.php
     if values == "3":
         while True:
@@ -271,7 +288,7 @@ def start_menu_calculate_bmi(values):
         round_bmi = round(bmi_2, 2)
         print("Calculating your BMI result...")
         print(f"Your BMI is {round_bmi}.")
-        
+
         if round_bmi < 18.5:
             print("BMI of less than 18.5 indicates that you are underweight")
         elif 18.5 <= round_bmi <= 24.9:
@@ -283,24 +300,21 @@ def start_menu_calculate_bmi(values):
         elif 35 <= round_bmi <= 39.9:
             print("A BMI of over 35 indicates that you are severely obese")
         elif round_bmi > 40:
-            print("A BMI of over 40 indicates that you are very severely obese")        
+            print("A BMI of over 40 indicates that you are very severely obese")
+        start_menu()
 
-
-def start_menu_manager(values):
+def start_menu_exit(values):
     """
-    Let the staff manager
-    """
+ Let the staff manager
+ """
     if values == "5":
-        print("Welcome to the admin portal for staff manager")
-        see_new_customers = input("If you would like to see the 5 newest customers press 1")
-        if see_new_customers == "1":
-            new_customers = SHEET.worksheet("new_customer")
+        pass
 
 
 def main():
     """
-    Run all program functions
-    """
+ Run all program functions
+ """
     start_menu()
 
 
