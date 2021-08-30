@@ -1,6 +1,5 @@
 import gspread
 from google.oauth2.service_account import Credentials
-from pprint import pprint
 import re
 
 SCOPE = [
@@ -78,7 +77,7 @@ def start_menu_new_customer(values):
         new_customer = {}
 
         while True:
-            data_name = input("Please provide us with your full name in all caps: ")
+            data_name = input("Please provide us with your full name in all caps:\n")
             if not data_name.isupper():
                 print("ERROR, please provide us with your name again")
             else:
@@ -88,7 +87,7 @@ def start_menu_new_customer(values):
 
         while True:
             try:
-                data_phone = int(input("Please provide us with your phone number: "))
+                data_phone = int(input("Please provide us with your phone number:\n"))
             except ValueError:
                 print("ERROR, please provide us with your phone number again")
                 continue
@@ -100,7 +99,7 @@ def start_menu_new_customer(values):
         if __name__ == "__main__":
 
             while True:
-                email = input("Please provide us with your email adress: ")
+                email = input("Please provide us with your email adress:\n")
                 if check(email):
                     break
                 else:
@@ -110,7 +109,7 @@ def start_menu_new_customer(values):
 
         print("We have two memberships. Silver (30€) and Gold (50€)")
         while True:
-            data_membership = input("Please choose between gold and silver membership: ")
+            data_membership = input("Please choose between gold and silver membership:\n")
             if data_membership.upper() == "SILVER" or data_membership.upper() == "GOLD":
                 break
             else:
@@ -155,7 +154,7 @@ def start_menu_calculate_membership(values):
         times_week = 0
         while True:
             try:
-                times_week = int(input("How many times per week are you going to train at our gym? "))
+                times_week = int(input("How many times per week are you going to train at our gym?\n"))
                 break
             except ValueError:
                 print("Invalid input. Try again.")
@@ -185,7 +184,7 @@ def start_menu_calculate_bmr(values):
     if values == "4":
         while True:
             try:
-                age = int(input("Please enter your age: "))
+                age = int(input("Please enter your age:\n"))
             except ValueError:
                 print("ERROR, provide your age again")
                 continue
@@ -194,7 +193,7 @@ def start_menu_calculate_bmr(values):
         print(f"Your age is saved as {age}.\n")
         while True:
             try:
-                height = int(input("Please enter your height in (cm): "))
+                height = int(input("Please enter your height in (cm):\n"))
             except ValueError:
                 print("ERROR, provide your height again")
                 continue
@@ -203,7 +202,7 @@ def start_menu_calculate_bmr(values):
         print(f"Your height is saved as {height}.\n")
         while True:
             try:
-                weight = int(input("Please enter your weight in (kg): "))
+                weight = int(input("Please enter your weight in (kg):\n"))
             except ValueError:
                 print("ERROR, provide your weight again")
                 continue
@@ -212,7 +211,7 @@ def start_menu_calculate_bmr(values):
         print(f"Your weight is saved as {weight}.\n")
         male_female = "M"
         while True:
-            male_female = input("Please enter (M) for male or (F) for female: ")
+            male_female = input("Please enter (M) for male or (F) for female:\n")
             if male_female.upper() == "M" or male_female.upper() == "F":
                 break
             else:
@@ -245,7 +244,7 @@ def calculate_activity(bmr):
     activity_level = 0
     while True:
         try:
-            activity_level = int(input("Select your activity level (1-5) "))
+            activity_level = int(input("Select your activity level (1-5)\n"))
             if activity_level >= 1 and activity_level <= 5:
                 break
             else:
@@ -279,7 +278,7 @@ def start_menu_calculate_bmi(values):
     if values == "3":
         while True:
             try:
-                height = float(input("Please enter your height in (meter): "))
+                height = float(input("Please enter your height in (meter):\n"))
             except ValueError:
                 print("ERROR, provide your height again")
                 continue
@@ -288,7 +287,7 @@ def start_menu_calculate_bmi(values):
         print(f"Your height is saved as {height}.\n")
         while True:
             try:
-                weight = int(input("Please enter your weight in (kg): "))
+                weight = int(input("Please enter your weight in (kg):\n"))
             except ValueError:
                 print("ERROR, provide your weight again")
                 continue
