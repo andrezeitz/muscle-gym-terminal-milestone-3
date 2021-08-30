@@ -78,7 +78,7 @@ def start_menu_new_customer(values):
         new_customer = {}
 
         while True:
-            data_name = input("Please provide us with your name in all caps: ")
+            data_name = input("Please provide us with your full name in all caps: ")
             if not data_name.isupper():
                 print("ERROR, please provide us with your name again")
             else:
@@ -108,8 +108,9 @@ def start_menu_new_customer(values):
             new_customer["email"] = email
             print(f"Your email adress is saved as {email}.\n")
 
+        print("We have two memberships. Silver (30€) and Gold (50€)")
         while True:
-            data_membership = input("Please choose between gold and silver membership :")
+            data_membership = input("Please choose between gold and silver membership: ")
             if data_membership.upper() == "SILVER" or data_membership.upper() == "GOLD":
                 break
             else:
@@ -121,7 +122,6 @@ def start_menu_new_customer(values):
         return add_new_customer(new_customer)
 
 
-
 def add_new_customer(new_customer):
     """
     Add new customers to Google Sheet
@@ -129,17 +129,21 @@ def add_new_customer(new_customer):
     print("Saving your profil to the database...\n")
     worksheet_to_update = SHEET.worksheet("new_customer")
     worksheet_to_update.append_row([x for x in new_customer.values()])
-    print("Worksheet updated successfully.")
+    print("Membership worksheet updated successfully.")
     start_menu()
 
 
-def start_menu_calculate_membership(values):
-    """
-    Calculate how much the membership will cost per day
-    """
-    if values == "2":
-        print("Now we will check how much you are paying each time you are visiting the gym")
-        input("Please enter your email")
+# def start_menu_calculate_membership(values):
+#     """
+#     Calculate how much the membership will cost per day
+#     """
+#     if values == "2":
+#         print("Now we will check how much you are paying each time you are visiting the gym")
+#         print("I made 2 accounts to try. zeitz@gmail.com and maria@gmail.com")
+#         while True:
+#             email_membership = input("Please enter your email: ")
+#             if email_membership == "zeitz@gmail.com":
+
 
 def start_menu_calculate_membership(values):
     """
