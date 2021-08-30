@@ -1,5 +1,4 @@
 import gspread
-import math
 from google.oauth2.service_account import Credentials
 from pprint import pprint
 import re
@@ -18,7 +17,7 @@ SHEET = GSPREAD_CLIENT.open('muscle_gym')
 
 def start_menu():
     """
- Start menu with 3 options
+ Start menu with 5 options
  """
     print("Hi. Welcome to Muscle Gym.\n")
     while True:
@@ -37,13 +36,13 @@ def start_menu():
     start_menu_calculate_bmr(user_decide)
     start_menu_calculate_bmi(user_decide)
     start_menu_calculate_membership(user_decide)
-    #start_menu_manager(user_decide)
+    start_menu_exit(user_decide)
 
 
 def validate_start_menu(values):
     """
- Validate if a number is of 1, 2, 3, 4 or 5 and if not will send error message
- """
+    Validate if a number is of 1, 2, 3, 4 or 5 and if not will send error message
+    """
     try:
         if (int(values) < 1 or int(values) > 5):
             raise ValueError(
@@ -60,6 +59,9 @@ regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
 
 
 def check(email):
+    """
+    Validate email
+    """
     if (re.search(regex, email)):
         print("Valid Email")
         return True
@@ -70,8 +72,8 @@ def check(email):
 
 def start_menu_new_customer(values):
     """
- Will let the new customer enter all of there information
- """
+    Will let the new customer enter all of there information
+    """
     if values == "1":
         new_customer = {}
 
@@ -105,39 +107,44 @@ def start_menu_new_customer(values):
                     continue
             new_customer["email"] = email
             print(f"Your email adress is saved as {email}.\n")
-            return add_new_customer(new_customer)
+
+        while True:
+            data_membership = input("Please choose between gold and silver membership :")
+            if data_membership.upper() == "SILVER" or data_membership.upper() == "GOLD":
+                break
+            else:
+                print("Invalid input. Try again.")
+        data_membership = data_membership.upper()
+        new_customer["membership"] = data_membership
+        print(f"Your membership is saved as {data_membership}.\n")
+
+        return add_new_customer(new_customer)
+
 
 
 def add_new_customer(new_customer):
     """
- Add new customers to Google Sheet
- """
+    Add new customers to Google Sheet
+    """
     print("Saving your profil to the database...\n")
     worksheet_to_update = SHEET.worksheet("new_customer")
     worksheet_to_update.append_row([x for x in new_customer.values()])
     print("Worksheet updated successfully.")
     start_menu()
 
-def validate_times_week(times_week):
-    """
- Validate weeks
- """
-    try:
-        if (int(times_week) < 1 or int(times_week) > 7):
-            raise ValueError(
-                f"Please enter a number between 1 and 7"
-            )
-    except ValueError as e:
-        print(f"Invalid number: {e}, please try again.\n")
-        return False
-
-    return True
-
 
 def start_menu_calculate_membership(values):
     """
- Calculate how much the membership will cost per day
- """
+    Calculate how much the membership will cost per day
+    """
+    if values == "2":
+        print("Now we will check how much you are paying each time you are visiting the gym")
+        input("Please enter your email")
+
+def start_menu_calculate_membership(values):
+    """
+    Calculate how much the membership will cost per day
+    """
     if values == "2":
         print("We have two memberships. Silver (30€) and Gold (50€)")
         print("Let's see which membership is best suited for you...")
@@ -166,10 +173,11 @@ def start_menu_calculate_membership(values):
             print(f"Wow, if you train as much as {times_week} times we recommend you the gold membership")
         start_menu()
 
+
 def start_menu_calculate_bmr(values):
     """
- Will let the customer calculate there BMR if they engage in no activity for that day
- """
+    Will let the customer calculate there BMR if they engage in no activity
+    """
     if values == "4":
         while True:
             try:
@@ -217,17 +225,17 @@ def start_menu_calculate_bmr(values):
 
 def calculate_activity(bmr):
     """
- Will let the customer decide what activity scale they are on, then it will
- estimate how many calories for maintaining there current weight
- """
+    Will let the customer decide what activity scale they are on, then it will
+    estimate how many calories for maintaining there current weight
+    """
     print(
         """
-  1. If you are sedentary (little or no exercise)
-  2. If you are lightly active (light exercise or sports 1-3 days/week)
-  3. If you are moderately active (moderate exercise 3-5 days/week)
-  4. If you are very active (hard exercise 6-7 days/week)
-  5. If you are super active (very hard exercise and a physical job)
-  """
+        1. If you are sedentary (little or no exercise)
+        2. If you are lightly active (light exercise or sports 1-3 days/week)
+        3. If you are moderately active (moderate exercise 3-5 days/week)
+        4. If you are very active (hard exercise 6-7 days/week)
+        5. If you are super active (very hard exercise and a physical job)
+        """
     )
     # BMR Calculator I took the formula from https://www.thecalculatorsite.com/health/bmr-calculator.php
     activity_level = 0
@@ -258,10 +266,11 @@ def calculate_activity(bmr):
         f"Summary: Your body will burn {bmr} each day if you engage in no activity for that day. The estimate for maintaining your current weight (based upon your chosen activity level) is {calculate_activity_calories}. This calculation used the Mifflin - St Jeor equation.")
     start_menu()
 
+
 def start_menu_calculate_bmi(values):
     """
- Will let the customer calculate there BMI
- """
+    Will let the customer calculate BMI
+    """
     # BMI Calculator I took the formula from https://www.thecalculatorsite.com/health/bmicalculator.php
     if values == "3":
         while True:
@@ -303,18 +312,20 @@ def start_menu_calculate_bmi(values):
             print("A BMI of over 40 indicates that you are very severely obese")
         start_menu()
 
+
 def start_menu_exit(values):
     """
- Let the staff manager
- """
+    Exit the system
+    """
     if values == "5":
-        pass
+        print("Closing down the system...")
+        exit()
 
 
 def main():
     """
- Run all program functions
- """
+    Run all program functions
+    """
     start_menu()
 
 
