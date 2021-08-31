@@ -16,14 +16,14 @@ SHEET = GSPREAD_CLIENT.open('muscle_gym')
 
 def start_menu():
     """
- Start menu with 5 options
- """
+    Start menu with 5 options
+    """
     print("Hi. Welcome to Muscle Gym.\n")
     while True:
         user_decide = input(
             """
    If you want to registered as a new customer please press 1.
-   If you want to calculate the membership price on how many times you train please press 2.
+   If you want to calculate the membership price please press 2.
    If you want to calculate your Body Mass Index (BMI) please press 3
    If you want to calculate your Basal Metabolic Rate (BMR) please press 4.
    If you want to exit please press 5
@@ -132,49 +132,85 @@ def add_new_customer(new_customer):
     start_menu()
 
 
-# def start_menu_calculate_membership(values):
-#     """
-#     Calculate how much the membership will cost per day
-#     """
-#     if values == "2":
-#         print("Now we will check how much you are paying each time you are visiting the gym")
-#         print("I made 2 accounts to try. zeitz@gmail.com and maria@gmail.com")
-#         while True:
-#             email_membership = input("Please enter your email: ")
-#             if email_membership == "zeitz@gmail.com":
-
-
 def start_menu_calculate_membership(values):
     """
     Calculate how much the membership will cost per day
     """
     if values == "2":
-        print("We have two memberships. Silver (30€) and Gold (50€)")
-        print("Let's see which membership is best suited for you...")
-        times_week = 0
+        data = SHEET.worksheet("existing_customer").get_all_values()
+        print("We will check how much you are paying each time you are visiting the gym")
+        print("I made 2 accounts to try. zeitz@gmail.com and maria@gmail.com")
         while True:
-            try:
-                times_week = int(input("How many times per week are you going to train at our gym?\n"))
-                break
-            except ValueError:
-                print("Invalid input. Try again.")
+            email_membership = input("Please provide us with the email you registered with:\n")
+            #zeitz@gmail.com
+            for d in data:
 
-        # Calculate per month
-        times_month = (times_week * 4)
-        calculate_silver = round(30 / times_month, 2)
-        calculate_gold = round(50 / times_month, 2)
-        print(
-            f"Silver membership will cost you {calculate_silver}€ and gold membership {calculate_gold}€ each time you visit the gym")
+                if email_membership == d[2]:
+                    if d[3] == "Gold":
+                        p = 50
+                    else:
+                        p = 30
+                    values = d[4:]
+                    months = data[0][4:]
+                    for i in range(len(values)):
+                        price = int(values[i]) * (p / 30)
+                        print("Price for each " + months[i] + " is: " + str(price) + "€")
+                    start_menu()
+            else:
+                print("Invalid email. Try again..")
+        
+                
 
-        if times_week < 3:
-            print(
-                f"Okay, if you only train {times_week} time per week we recommend you to choose the silver membership.")
-        elif 2 <= times_week <= 4:
-            print(
-                f"Cool, if you train {times_week} times per week we recommend you either the silver or gold membership")
-        elif times_week > 5:
-            print(f"Wow, if you train as much as {times_week} times we recommend you the gold membership")
-        start_menu()
+
+# def start_menu_calculate_membership(values):
+    # """
+    # Calculate how much the membership will cost per day
+    # """
+    # if values == "2":
+    #     print("We will check how much you are paying each time you are visiting the gym")
+    #     print("I made 2 accounts to try. zeitz@gmail.com and maria@gmail.com")
+    #     while True:
+    #         email_membership = input("Please provide us with the email you registered with:\n")
+    #         if email_membership == "zeitz@gmail.com" or email_membership == "maria@gmail.com":
+    #             break
+    #         else:
+    #             print("Invalid input")
+    #     email_membership = email_membership.upper()
+    #     print("Logged in.")
+
+
+
+# def start_menu_calculate_membership(values):
+    # """
+    # Calculate how much the membership will cost per day
+    # """
+    # if values == "2":
+    #     print("We have two memberships. Silver (30€) and Gold (50€)")
+    #     print("Let's see which membership is best suited for you...")
+    #     times_week = 0
+    #     while True:
+    #         try:
+    #             times_week = int(input("How many times per week are you going to train at our gym?\n"))
+    #             break
+    #         except ValueError:
+    #             print("Invalid input. Try again.")
+
+    #     # Calculate per month
+    #     times_month = (times_week * 4)
+    #     calculate_silver = round(30 / times_month, 2)
+    #     calculate_gold = round(50 / times_month, 2)
+    #     print(
+    #         f"Silver membership will cost you {calculate_silver}€ and gold membership {calculate_gold}€ each time you visit the gym")
+
+    #     if times_week < 3:
+    #         print(
+    #             f"Okay, if you only train {times_week} time per week we recommend you to choose the silver membership.")
+    #     elif 2 <= times_week <= 4:
+    #         print(
+    #             f"Cool, if you train {times_week} times per week we recommend you either the silver or gold membership")
+    #     elif times_week > 5:
+    #         print(f"Wow, if you train as much as {times_week} times we recommend you the gold membership")
+    #     start_menu()
 
 
 def start_menu_calculate_bmr(values):
@@ -264,9 +300,9 @@ def calculate_activity(bmr):
         activity_index = 1.9
 
     calculate_activity_calories = int(bmr * activity_index)
-    print("Calculating your BMR result...")
-    print(
-        f"Summary: Your body will burn {bmr} each day if you engage in no activity for that day. The estimate for maintaining your current weight (based upon your chosen activity level) is {calculate_activity_calories}. This calculation used the Mifflin - St Jeor equation.")
+    print("Calculating your BMR result...\n")
+    print(f"Summary: Your body will burn {bmr} each day if you engage in no activity for that day.\n")
+    print(f"The estimate for maintaining your current weight (based upon your chosen activity level) is {calculate_activity_calories}.\n")
     start_menu()
 
 
@@ -278,7 +314,7 @@ def start_menu_calculate_bmi(values):
     if values == "3":
         while True:
             try:
-                height = float(input("Please enter your height in (meter):\n"))
+                height = float(input("Please enter your height in (meter) (1.XX):\n"))
             except ValueError:
                 print("ERROR, provide your height again")
                 continue
@@ -322,7 +358,7 @@ def start_menu_exit(values):
     """
     if values == "5":
         print("Closing down the system...")
-        exit()
+    exit()    
 
 
 def main():
