@@ -251,8 +251,8 @@ def calculate_activity(bmr):
 
     calculate_activity_calories = int(bmr * activity_index)
     print("Calculating your BMR result...\n")
-    print(f"Summary: Your body will burn {bmr} each day.\n")
-    print(f"The estimate for maintaining your current weight is {calculate_activity_calories}.\n")
+    print(f"Summary: Your body will burn {bmr} calories each day.\n")
+    print(f"The estimate for maintaining your current weight is {calculate_activity_calories} calories.\n")
     start_menu()
 
 
