@@ -54,6 +54,7 @@ def validate_start_menu(values):
     return True
 
 
+# regex from https://www.youtube.com/watch?v=prpqNAsxsfw
 regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
 
 
@@ -142,7 +143,8 @@ def start_menu_calculate_membership(values):
         print("I made 2 accounts to try. zeitz@gmail.com and maria@gmail.com")
         while True:
             email_membership = input("Please provide us with the email you registered with:\n")
-            #zeitz@gmail.com
+            # zeitz@gmail.com
+            # maria@gmail.com
             for d in data:
 
                 if email_membership == d[2]:
@@ -153,64 +155,12 @@ def start_menu_calculate_membership(values):
                     values = d[4:]
                     months = data[0][4:]
                     for i in range(len(values)):
-                        price = int(values[i]) * (p / 30)
+                        # price = round(int(p / values[i], 2))
+                        price = int(values[i]) * (30 / p)
                         print("Price for each " + months[i] + " is: " + str(price) + "€")
                     start_menu()
             else:
                 print("Invalid email. Try again..")
-        
-                
-
-
-# def start_menu_calculate_membership(values):
-    # """
-    # Calculate how much the membership will cost per day
-    # """
-    # if values == "2":
-    #     print("We will check how much you are paying each time you are visiting the gym")
-    #     print("I made 2 accounts to try. zeitz@gmail.com and maria@gmail.com")
-    #     while True:
-    #         email_membership = input("Please provide us with the email you registered with:\n")
-    #         if email_membership == "zeitz@gmail.com" or email_membership == "maria@gmail.com":
-    #             break
-    #         else:
-    #             print("Invalid input")
-    #     email_membership = email_membership.upper()
-    #     print("Logged in.")
-
-
-
-# def start_menu_calculate_membership(values):
-    # """
-    # Calculate how much the membership will cost per day
-    # """
-    # if values == "2":
-    #     print("We have two memberships. Silver (30€) and Gold (50€)")
-    #     print("Let's see which membership is best suited for you...")
-    #     times_week = 0
-    #     while True:
-    #         try:
-    #             times_week = int(input("How many times per week are you going to train at our gym?\n"))
-    #             break
-    #         except ValueError:
-    #             print("Invalid input. Try again.")
-
-    #     # Calculate per month
-    #     times_month = (times_week * 4)
-    #     calculate_silver = round(30 / times_month, 2)
-    #     calculate_gold = round(50 / times_month, 2)
-    #     print(
-    #         f"Silver membership will cost you {calculate_silver}€ and gold membership {calculate_gold}€ each time you visit the gym")
-
-    #     if times_week < 3:
-    #         print(
-    #             f"Okay, if you only train {times_week} time per week we recommend you to choose the silver membership.")
-    #     elif 2 <= times_week <= 4:
-    #         print(
-    #             f"Cool, if you train {times_week} times per week we recommend you either the silver or gold membership")
-    #     elif times_week > 5:
-    #         print(f"Wow, if you train as much as {times_week} times we recommend you the gold membership")
-    #     start_menu()
 
 
 def start_menu_calculate_bmr(values):
@@ -358,7 +308,7 @@ def start_menu_exit(values):
     """
     if values == "5":
         print("Closing down the system...")
-    exit()    
+    exit()
 
 
 def main():
