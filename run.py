@@ -40,7 +40,7 @@ def start_menu():
 
 def validate_start_menu(values):
     """
-    Validate if a number is of 1, 2, 3, 4 or 5 and if not will send error message
+    Validate number is 1, 2, 3, 4 or 5 if not will send error message
     """
     try:
         if (int(values) < 1 or int(values) > 5):
@@ -251,8 +251,8 @@ def calculate_activity(bmr):
 
     calculate_activity_calories = int(bmr * activity_index)
     print("Calculating your BMR result...\n")
-    print(f"Summary: Your body will burn {bmr} each day if you engage in no activity for that day.\n")
-    print(f"The estimate for maintaining your current weight (based upon your chosen activity level) is {calculate_activity_calories}.\n")
+    print(f"Summary: Your body will burn {bmr} each day.\n")
+    print(f"The estimate for maintaining your current weight is {calculate_activity_calories}.\n")
     start_menu()
 
 
