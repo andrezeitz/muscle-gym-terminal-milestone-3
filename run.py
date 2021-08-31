@@ -129,7 +129,7 @@ def add_new_customer(new_customer):
     print("Saving your profil to the database...\n")
     worksheet_to_update = SHEET.worksheet("new_customer")
     worksheet_to_update.append_row([x for x in new_customer.values()])
-    print("Membership worksheet updated successfully.")
+    print("Membership worksheet updated successfully.\n")
     start_menu()
 
 
@@ -156,7 +156,7 @@ def start_menu_calculate_membership(values):
                     months = data[0][4:]
                     for i in range(len(values)):
                         price = round(p / int(values[i]), 2)
-                        print("Price for each " + months[i] + " is: " + str(price) + "€")
+                        print("Price for each " + months[i] + " is: " + str(price) + "€\n")
                     start_menu()
             else:
                 print("Invalid email. Try again..")
@@ -207,7 +207,7 @@ def start_menu_calculate_bmr(values):
             bmr = int((10 * weight) + (6.25 * height) - (5 * age) + 5)
         elif male_female == "F":
             bmr = int((10 * weight) + (6.25 * height) - (5 * age) - 161)
-        print("Your BMR is " + str(bmr) + ".")
+        print("Your BMR is " + str(bmr) + ".\n")
         return calculate_activity(bmr)
 
 
@@ -297,7 +297,7 @@ def start_menu_calculate_bmi(values):
         elif 35 <= round_bmi <= 39.9:
             print("A BMI of over 35 indicates that you are severely obese")
         elif round_bmi > 40:
-            print("A BMI of over 40 indicates that you are very severely obese")
+            print("A BMI of over 40 indicates that you are very severely obese\n")
         start_menu()
 
 
@@ -306,7 +306,7 @@ def start_menu_exit(values):
     Exit the system
     """
     if values == "5":
-        print("Closing down the system...")
+        print("Closing down the system...\n")
     exit()
 
 
