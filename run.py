@@ -234,7 +234,7 @@ def calculate_activity(bmr):
                 break
             else:
                 print("Activity level must be between 1-5. Try again.")
-        except:
+        except ValueError:
             print("Invalid input. Try again.")
 
     if activity_level == 1:
