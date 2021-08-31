@@ -139,8 +139,8 @@ def start_menu_calculate_membership(values):
     """
     if values == "2":
         data = SHEET.worksheet("existing_customer").get_all_values()
-        print("We will check how much you are paying each time you are visiting the gym")
-        print("I made 2 accounts to try. zeitz@gmail.com and maria@gmail.com")
+        print("We will check how much you are paying each time you are visiting the gym.\n")
+        print("I made 2 accounts to try. zeitz@gmail.com and maria@gmail.com.\n")
         while True:
             email_membership = input("Please provide us with the email you registered with:\n")
             # zeitz@gmail.com
@@ -155,8 +155,7 @@ def start_menu_calculate_membership(values):
                     values = d[4:]
                     months = data[0][4:]
                     for i in range(len(values)):
-                        # price = round(int(p / values[i], 2))
-                        price = int(values[i]) * (30 / p)
+                        price = round(p / int(values[i]), 2)
                         print("Price for each " + months[i] + " is: " + str(price) + "€")
                     start_menu()
             else:
