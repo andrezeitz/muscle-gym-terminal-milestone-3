@@ -22,7 +22,7 @@ def start_menu():
     while True:
         user_decide = input(
             """
-   If you want to registered as a new customer please press 1.
+   If you want to register as a new customer please press 1.
    If you want to calculate the membership price please press 2.
    If you want to calculate your Body Mass Index (BMI) please press 3
    If you want to calculate your Basal Metabolic Rate (BMR) please press 4.
@@ -40,7 +40,7 @@ def start_menu():
 
 def validate_start_menu(values):
     """
-    Validate number is 1, 2, 3, 4 or 5 if not will send error message
+    Validate if number is between 1-5, if not will send error message
     """
     try:
         if (int(values) < 1 or int(values) > 5):
@@ -72,7 +72,8 @@ def check(email):
 
 def start_menu_new_customer(values):
     """
-    Will let the new customer enter all of there information
+    Will let the new customers to enter their information
+    and choose if they want silver or gold membership
     """
     if values == "1":
         new_customer = {}
@@ -80,7 +81,7 @@ def start_menu_new_customer(values):
         while True:
             data_name = input("Please provide us with your full name in all caps:\n")
             if not data_name.isupper():
-                print("ERROR, please provide us with your name again")
+                print("ERROR, please provide us with your name again in caps")
             else:
                 break
         new_customer["firstname"] = data_name
@@ -97,20 +98,18 @@ def start_menu_new_customer(values):
         new_customer["phone"] = data_phone
         print(f"Your phone number is saved as {data_phone}.\n")
 
-        if __name__ == "__main__":
-
-            while True:
-                email = input("Please provide us with your email adress:\n")
-                if check(email):
-                    break
-                else:
-                    continue
-            new_customer["email"] = email
-            print(f"Your email adress is saved as {email}.\n")
+        while True:
+            email = input("Please provide us with your email address:\n")
+            if check(email):
+                break
+            else:
+                continue
+        new_customer["email"] = email
+        print(f"Your email adress is saved as {email}.\n")
 
         print("We have two memberships. Silver (30€) and Gold (50€)")
         while True:
-            data_membership = input("Please choose between gold and silver membership:\n")
+            data_membership = input("Please type gold or silver to choose your membership:\n")
             if data_membership.upper() == "SILVER" or data_membership.upper() == "GOLD":
                 break
             else:
@@ -135,16 +134,16 @@ def add_new_customer(new_customer):
 
 def start_menu_calculate_membership(values):
     """
-    Calculate how much the membership will cost per day
+    Will take information from google sheet and calculate
+    how much the membership cost per day for each member
     """
     if values == "2":
         data = SHEET.worksheet("existing_customer").get_all_values()
         print("We will check how much you are paying each time you are visiting the gym.\n")
-        print("I made 2 accounts to try. zeitz@gmail.com and maria@gmail.com.\n")
         while True:
             email_membership = input("Please provide us with the email you registered with:\n")
-            # zeitz@gmail.com
-            # maria@gmail.com
+            # use zeitz@gmail.com as sample
+            # use maria@gmail.com as sample
             for d in data:
 
                 if email_membership == d[2]:
@@ -156,10 +155,10 @@ def start_menu_calculate_membership(values):
                     months = data[0][4:]
                     for i in range(len(values)):
                         price = round(p / int(values[i]), 2)
-                        print("Price for each " + months[i] + " is: " + str(price) + "€\n")
+                        print("Price for each time trained in " + months[i] + " was: " + str(price) + "€\n")
                     start_menu()
             else:
-                print("Invalid email. Try again..")
+                print("We have no records of your visit. Please try again.")
 
 
 def start_menu_calculate_bmr(values):
@@ -202,13 +201,14 @@ def start_menu_calculate_bmr(values):
             else:
                 print("Invalid input. Try again.")
         male_female = male_female.upper()
-        # BMR Calculator I took the formula from https://www.thecalculatorsite.com/health/bmr-calculator.php
+        # BMR Calculation formula
+        # https://www.thecalculatorsite.com/health/bmr-calculator.php
         if male_female == "M":
             bmr = int((10 * weight) + (6.25 * height) - (5 * age) + 5)
         elif male_female == "F":
             bmr = int((10 * weight) + (6.25 * height) - (5 * age) - 161)
         print("Your BMR is " + str(bmr) + ".\n")
-        return calculate_activity(bmr)
+        calculate_activity(bmr)
 
 
 def calculate_activity(bmr):
@@ -225,7 +225,8 @@ def calculate_activity(bmr):
         5. If you are super active (very hard exercise and a physical job)
         """
     )
-    # BMR Calculator I took the formula from https://www.thecalculatorsite.com/health/bmr-calculator.php
+    # BMR Calculation formula from
+    # https://www.thecalculatorsite.com/health/bmr-calculator.php
     activity_level = 0
     while True:
         try:
@@ -257,9 +258,11 @@ def calculate_activity(bmr):
 
 def start_menu_calculate_bmi(values):
     """
-    Will let the customer calculate BMI
+    Will let the customer calculate BMI and
+    get a result on what scale they are
     """
-    # BMI Calculator I took the formula from https://www.thecalculatorsite.com/health/bmicalculator.php
+    # BMI Calculation formula from
+    # https://www.thecalculatorsite.com/health/bmicalculator.php
     if values == "3":
         while True:
             try:
@@ -307,7 +310,7 @@ def start_menu_exit(values):
     """
     if values == "5":
         print("Closing down the system...\n")
-    exit()
+    quit()
 
 
 def main():
