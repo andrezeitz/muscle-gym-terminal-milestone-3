@@ -79,7 +79,7 @@ def start_menu_new_customer(values):
         new_customer = {}
 
         while True:
-            data_name = input("Please provide us with your full name in all caps:\n")
+            data_name = input("Please type your full name in all caps:\n")
             if not data_name.isupper():
                 print("ERROR, please provide us with your name again in caps")
             else:
@@ -89,7 +89,7 @@ def start_menu_new_customer(values):
 
         while True:
             try:
-                data_phone = int(input("Please provide us with your phone number:\n"))
+                data_phone = int(input("Please type your phone number:\n"))
             except ValueError:
                 print("ERROR, please provide us with your phone number again")
                 continue
@@ -99,7 +99,7 @@ def start_menu_new_customer(values):
         print(f"Your phone number is saved as {data_phone}.\n")
 
         while True:
-            email = input("Please provide us with your email address:\n")
+            email = input("Please type your email address:\n")
             if check(email):
                 break
             else:
@@ -109,14 +109,14 @@ def start_menu_new_customer(values):
 
         print("We have two memberships. Silver (30€) and Gold (50€)")
         while True:
-            data_membership = input("Please type gold or silver to choose your membership:\n")
-            if data_membership.upper() == "SILVER" or data_membership.upper() == "GOLD":
+            membership = input("Type gold or silver to choose membership:\n")
+            if membership.upper() == "SILVER" or membership.upper() == "GOLD":
                 break
             else:
                 print("Invalid input. Try again.")
-        data_membership = data_membership.upper()
-        new_customer["membership"] = data_membership
-        print(f"Your membership is saved as {data_membership}.\n")
+        membership = membership.upper()
+        new_customer["membership"] = membership
+        print(f"Your membership is saved as {membership}.\n")
 
         return add_new_customer(new_customer)
 
@@ -139,9 +139,9 @@ def start_menu_calculate_membership(values):
     """
     if values == "2":
         data = SHEET.worksheet("existing_customer").get_all_values()
-        print("We will check how much you are paying each time you are visiting the gym.\n")
+        print("Calculate the avarge price each time visiting the gym.\n")
         while True:
-            email_membership = input("Please provide us with the email you registered with:\n")
+            email_membership = input("Enter the email you registered with:\n")
             # use zeitz@gmail.com as sample
             # use maria@gmail.com as sample
             for d in data:
@@ -155,7 +155,8 @@ def start_menu_calculate_membership(values):
                     months = data[0][4:]
                     for i in range(len(values)):
                         price = round(p / int(values[i]), 2)
-                        print("Price for each time trained in " + months[i] + " was: " + str(price) + "€\n")
+                        print("Price for each time trained",
+                              "in " + months[i] + " was " + str(price) + "€\n")
                     start_menu()
             else:
                 print("We have no records of your visit. Please try again.")
@@ -195,7 +196,7 @@ def start_menu_calculate_bmr(values):
         print(f"Your weight is saved as {weight}.\n")
         male_female = "M"
         while True:
-            male_female = input("Please enter (M) for male or (F) for female:\n")
+            male_female = input("Enter (M) for male or (F) for female:\n")
             if male_female.upper() == "M" or male_female.upper() == "F":
                 break
             else:
@@ -249,10 +250,10 @@ def calculate_activity(bmr):
     elif activity_level == 5:
         activity_index = 1.9
 
-    calculate_activity_calories = int(bmr * activity_index)
+    activity_calories = int(bmr * activity_index)
     print("Calculating your BMR result...\n")
     print(f"Summary: Your body will burn {bmr} calories each day.\n")
-    print(f"The estimate for maintaining your current weight is {calculate_activity_calories} calories.\n")
+    print(f"To maintain your current weight {activity_calories} calories.\n")
     start_menu()
 
 
@@ -266,7 +267,7 @@ def start_menu_calculate_bmi(values):
     if values == "3":
         while True:
             try:
-                height = float(input("Please enter your height in (meter) (1.XX):\n"))
+                height = float(input("Enter your height in (meter) (1.XX):\n"))
             except ValueError:
                 print("ERROR, provide your height again")
                 continue
@@ -275,7 +276,7 @@ def start_menu_calculate_bmi(values):
         print(f"Your height is saved as {height}.\n")
         while True:
             try:
-                weight = int(input("Please enter your weight in (kg):\n"))
+                weight = int(input("Enter your weight in (kg):\n"))
             except ValueError:
                 print("ERROR, provide your weight again")
                 continue
@@ -292,15 +293,15 @@ def start_menu_calculate_bmi(values):
         if round_bmi < 18.5:
             print("BMI of less than 18.5 indicates that you are underweight")
         elif 18.5 <= round_bmi <= 24.9:
-            print("A BMI of 18.5 - 24.9 indicates that you are at a healthy weight for your height.")
+            print("BMI of 18.5-24.9 indicates that you are at healthy weight")
         elif 25 <= round_bmi <= 29.9:
-            print("A BMI of 25 - 29.9 indicates that you are slightly overweight.")
+            print("BMI of 25-29.9 indicates that you are slightly overweight.")
         elif 30 <= round_bmi <= 34.9:
-            print("A BMI of over 30 indicates that you are moderately obese")
+            print("BMI of over 30 indicates that you are moderately obese")
         elif 35 <= round_bmi <= 39.9:
-            print("A BMI of over 35 indicates that you are severely obese")
+            print("BMI of over 35 indicates that you are severely obese")
         elif round_bmi > 40:
-            print("A BMI of over 40 indicates that you are very severely obese\n")
+            print("BMI over 40 indicates that you are very severely obese\n")
         start_menu()
 
 
