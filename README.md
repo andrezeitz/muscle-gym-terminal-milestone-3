@@ -1,15 +1,17 @@
 # Muscle Gym Terminal
 
-This app is designed to allow people to registered them self for a membership at Muscle Gym. Customers can also calculate how much the membership will cost per each time they are visiting the gym. There is a BMI calculator to check on what level there BMI is right now. It's also possible to check how many calories they burn each day from a BMR calculator.
+This app is designed to allow people to registered them self for a membership at Muscle Gym. Existing custumers can also calculate the average cost per visit to the gym. They will get a full year statistic depending on what membership they have and how many times they trained each month. There is a BMI calculator to check on what level their BMI is right now. It's also possible to check how many calories they burn each day from a BMR calculator.
 
 [Here is the live version of my project](https://muscle-gym.herokuapp.com/)
+
+[Here is the Google Sheet](https://docs.google.com/spreadsheets/d/1jjdcsYbypGQb7LZ-UuAfCqHO--gd7cCnGHkTBQu8WaA/edit#gid=0)
 
 ![Skärmavbild 2021-09-01 kl  11 48 13](https://user-images.githubusercontent.com/85236391/131650534-91c03e9e-d9e9-4ab4-9b1e-9ec23c2fe110.png)
 
 ## Existing Features
 
 * Start menu
-  * Customer will be asked to enter a number between 1 and 5.
+  * Customer will be asked to type a number between 1 and 5.
 
 There are validations to check firstly that the user only enter a number between 1 and 5.
 If they dont they will get a error message and be able to enter a correct number.
@@ -17,33 +19,33 @@ If they dont they will get a error message and be able to enter a correct number
 ![menu](https://user-images.githubusercontent.com/85236391/131645665-999a06b0-9da1-4c8f-aaf8-276dfe510ed5.png)
 
 * Registered as a new member
-  * Customers will be able to registered them self with inside the terminal.
+  * Customers will be able to registered them selfs with inside the terminal.
 
-The information entered by the customer will be saved to a google sheet called new_customer.
+The information entering by the customer will be saved to a google sheet called new_customer.
 All inputs have validators that check so the customer is entered valid information. If not they will be asked to enter the information again.
 
 ![New customers](https://user-images.githubusercontent.com/85236391/131643213-624e13f3-6b47-402b-ad86-b3ac0d507a6f.png)
 
 * Calculate existing customer's membership price
-  * Customer is able to calculate how much they pay for each time they visited the gym for the last year.
+  * Customer is able to calculate the avarge price on how many times they visited the gym each month for the last year.
 
-The information is already saved in a google sheet called exisiting_customer and the program will read from it how many times the customer have trained last year and what type of membership they have. For this I already made 2 accounts to take information from zeitz@gmail.com (Gold) and maria@gmail.com (Silver).
+The information is already saved in a google sheet called exisiting_customer and the program will read from it how many times the customer have trained each month and what type of membership they have. Please use one of these test accounts when checking if it is working, zeitz@gmail.com (Gold) and maria@gmail.com (Silver).
 All inputs have validations that check so the customer is entered valid information. If not they will be asked to enter the information again.
 
 ![Calculate price](https://user-images.githubusercontent.com/85236391/131643241-abf9ed01-dac1-452f-b06a-8923632d7122.png)
 
 * Calculate your BMI (Body Mass Index)
-  * Customer is able to calculate there body type scale with the BMI calculation.
+  * Customer is able to calculate their body type scale with the BMI calculation.
 
-The customer will get back information on how there BMI is right now and also if they are underweight, middleweight or overweight.
+The customer will get back information on how their BMI is right now and also if they are underweight, middleweight or overweight.
 All inputs have validations that check so the customer is entered valid information. If not they will be asked to enter the information again.
 
 ![BMI](https://user-images.githubusercontent.com/85236391/131643259-279a095c-0686-4fde-b900-c0181b8ff65d.png)
 
 * Calculate your BMR (Basal Metabolic Rate)
-  * Customer is able to calculate there daily calorie burn rate with the BMR calculation.
+  * Customer is able to calculate their daily calorie burn rate with the BMR calculation.
 
-Customer will get information on how many calories they should eat to maintain there current weight based on the information they enter.
+Customer will get information on how many calories they should eat to maintain their current weight based on the information they enter.
 All inputs have validations that check so the customer is entered valid information. If not they will be asked to enter the information again.
 
 ![BMR1](https://user-images.githubusercontent.com/85236391/131643273-a42f4205-cf2f-4886-98d5-79d17b0c277d.png)
@@ -52,9 +54,19 @@ All inputs have validations that check so the customer is entered valid informat
 * Exit the program
   * Customer is able to exit the program
 
+## Data Model
+In the new_members sheet I collect all information the customer entered.
+
+![new menber](https://user-images.githubusercontent.com/85236391/131714986-d5fc3948-b75e-4356-b705-0167dc479fad.png)
+
+In the excisting_customers sheet I put in a summary of data for a year. I decided to store four attributes with fake data just to have something to read from.
+I'm aware that in a real world senario it would not look like this and every visit would be tracked but for this education project I did it like a summary.
+
+![month](https://user-images.githubusercontent.com/85236391/131715007-34dca87f-ae39-4718-8ef7-c272dd36a388.png)
+
 ## Future Features
-* Allow members to cancel there membership
-* Allow members to pay for there membership in the app
+* Allow members to cancel their membership
+* Allow members to pay for their membership in the app
 * Collect even more information about the members like address and hometown
 
 ## How to Use the app
@@ -67,18 +79,13 @@ How I have tested the code:
 
 * The python code has been run through the Python pep8 validation and confirmed there are no problems
 * I have also run the code through many cycles adding in different values and checking that the output is as expected.
-* All inputs have validation to ensure the customer enter the correct information.
-* I have tested both in my local terminal and the Code Institute Heroku terminal
+* All inputs have validation to ensure the customer enters the correct information.
+* I have tested both in my local terminal and my deployed Heroku terminal
 
 ### Bugs
 
 #### Solved Bugs
-* I had this problem to get the correct return value on the first bmr function.
-![Skärmavbild 2021-08-18 kl  11 48 16](https://user-images.githubusercontent.com/85236391/130408610-ac10886e-c73b-4e8d-87f8-4a26a7f207ed.png)
-
-I fixed it by change the return value inside start_menu_calculate(values) from ”return bmr” to instead use ”return calculate_activity(bmr)” and made the bmr readable inside the new function.
-
-* I had this other problem where I calculated the price per visit wrong. I use this formula first to get the result "price = int(values[i]) * (30 / p)".
+* I had this problem where I calculated the price per visit wrong. I use this formula first to get the result "price = int(values[i]) * (30 / p)".
 The price was getting higher if the customer was training more which it obviously shouldn't be.
 
 ![Skärmavbild 2021-08-31 kl  17 47 41](https://user-images.githubusercontent.com/85236391/131539117-3ee75343-e78e-4655-9475-e95898c98103.png)
