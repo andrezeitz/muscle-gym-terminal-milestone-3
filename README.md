@@ -4,6 +4,8 @@ This app is designed to allow people to registered them self for a membership at
 
 [Here is the live version of my project](https://muscle-gym.herokuapp.com/)
 
+![Skärmavbild 2021-09-01 kl  11 48 13](https://user-images.githubusercontent.com/85236391/131650534-91c03e9e-d9e9-4ab4-9b1e-9ec23c2fe110.png)
+
 ## Existing Features
 
 * Start menu
@@ -131,3 +133,9 @@ How to clone this repository.
 * Change the current working directory to the location where you want the cloned directory.
 * Type git clone, and then paste the URL you copied earlier from step 3.
 * Press Enter to create your local clone.
+
+## Credits
+* [Calculation formula for BMR](https://www.thecalculatorsite.com/health/bmr-calculator.php)
+* [Calculation formula for BMI](https://www.thecalculatorsite.com/health/bmicalculator.php)
+* [Mail regex validation](https://www.youtube.com/watch?v=prpqNAsxsfw)
+* Code Intitute for the deployment terminal
