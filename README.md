@@ -11,10 +11,7 @@ This app is designed to allow people to registered them self for a membership at
 ## Existing Features
 
 * Start menu
-  * Customer will be asked to 
-  
-  
-  a number between 1 and 5.
+  * Customer will be asked to type a number between 1 and 5.
 
 There are validations to check firstly that the user only enter a number between 1 and 5.
 If they dont they will get a error message and be able to enter a correct number.
@@ -30,9 +27,9 @@ All inputs have validators that check so the customer is entered valid informati
 ![New customers](https://user-images.githubusercontent.com/85236391/131643213-624e13f3-6b47-402b-ad86-b3ac0d507a6f.png)
 
 * Calculate existing customer's membership price
-  * Customer is able to calculate how much they payed for each time they visited the gym for the last year.
+  * Customer is able to calculate the avarge price on how many times they visited the gym each month for the last year.
 
-The information is already saved in a google sheet called exisiting_customer and the program will read from it how many times the customer have trained each month and what type of membership they have. Please use on of these test accounts when checking if it is working, zeitz@gmail.com (Gold) and maria@gmail.com (Silver).
+The information is already saved in a google sheet called exisiting_customer and the program will read from it how many times the customer have trained each month and what type of membership they have. Please use one of these test accounts when checking if it is working, zeitz@gmail.com (Gold) and maria@gmail.com (Silver).
 All inputs have validations that check so the customer is entered valid information. If not they will be asked to enter the information again.
 
 ![Calculate price](https://user-images.githubusercontent.com/85236391/131643241-abf9ed01-dac1-452f-b06a-8923632d7122.png)
@@ -58,8 +55,14 @@ All inputs have validations that check so the customer is entered valid informat
   * Customer is able to exit the program
 
 ## Data Model
+In the new_members sheet I collect all information the customer entered.
+
+![new menber](https://user-images.githubusercontent.com/85236391/131714986-d5fc3948-b75e-4356-b705-0167dc479fad.png)
+
 In the excisting_customers sheet I put in a summary of data for a year. I decided to store four attributes with fake data just to have something to read from.
 I'm aware that in a real world senario it would not look like this and every visit would be tracked but for this education project I did it like a summary.
+
+![month](https://user-images.githubusercontent.com/85236391/131715007-34dca87f-ae39-4718-8ef7-c272dd36a388.png)
 
 ## Future Features
 * Allow members to cancel their membership
