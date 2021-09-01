@@ -24,7 +24,7 @@ If they dont they will get a error message and be able to enter a correct number
 The information entering by the customer will be saved to a google sheet called new_customer.
 All inputs have validators that check so the customer is entered valid information. If not they will be asked to enter the information again.
 
-![New customers](https://user-images.githubusercontent.com/85236391/131643213-624e13f3-6b47-402b-ad86-b3ac0d507a6f.png)
+![meeeember](https://user-images.githubusercontent.com/85236391/131723622-637a72f4-8d39-426c-a58e-796f93df465e.png)
 
 * Calculate existing customer's membership price
   * Customer is able to calculate the avarge price on how many times they visited the gym each month for the last year.
@@ -32,7 +32,7 @@ All inputs have validators that check so the customer is entered valid informati
 The information is already saved in a google sheet called exisiting_customer and the program will read from it how many times the customer have trained each month and what type of membership they have. Please use one of these test accounts when checking if it is working, zeitz@gmail.com (Gold) and maria@gmail.com (Silver).
 All inputs have validations that check so the customer is entered valid information. If not they will be asked to enter the information again.
 
-![Calculate price](https://user-images.githubusercontent.com/85236391/131643241-abf9ed01-dac1-452f-b06a-8923632d7122.png)
+![priccce](https://user-images.githubusercontent.com/85236391/131723639-1f487e98-7cba-47dc-957a-edf3ddb7c233.png)
 
 * Calculate your BMI (Body Mass Index)
   * Customer is able to calculate their body type scale with the BMI calculation.
@@ -40,7 +40,7 @@ All inputs have validations that check so the customer is entered valid informat
 The customer will get back information on how their BMI is right now and also if they are underweight, middleweight or overweight.
 All inputs have validations that check so the customer is entered valid information. If not they will be asked to enter the information again.
 
-![BMI](https://user-images.githubusercontent.com/85236391/131643259-279a095c-0686-4fde-b900-c0181b8ff65d.png)
+![bmiii](https://user-images.githubusercontent.com/85236391/131723655-a39a4faa-081e-4dbc-bd8c-3b152cb03d08.png)
 
 * Calculate your BMR (Basal Metabolic Rate)
   * Customer is able to calculate their daily calorie burn rate with the BMR calculation.
@@ -48,8 +48,8 @@ All inputs have validations that check so the customer is entered valid informat
 Customer will get information on how many calories they should eat to maintain their current weight based on the information they enter.
 All inputs have validations that check so the customer is entered valid information. If not they will be asked to enter the information again.
 
-![BMR1](https://user-images.githubusercontent.com/85236391/131643273-a42f4205-cf2f-4886-98d5-79d17b0c277d.png)
-![BMR2](https://user-images.githubusercontent.com/85236391/131643283-34f07376-1500-4d92-98a4-ffb95959befd.png)
+![bmrr2](https://user-images.githubusercontent.com/85236391/131723669-9738e9d8-e02d-45df-a233-e79a9aa109cc.png)
+![bmrr3](https://user-images.githubusercontent.com/85236391/131723677-b594d66d-8c51-4bd2-b197-adedb3ee280d.png)
 
 * Exit the program
   * Customer is able to exit the program
@@ -103,6 +103,8 @@ Finally I found out how to make the calculation work properly and could move on 
 ### Validation Testing
 * PEP8
   * No errors where returned from PEP8online.com
+
+![pep no error](https://user-images.githubusercontent.com/85236391/131722822-d0238811-8835-41ab-8199-d4dbead2cffc.png)
 
 ## Technologies
 * [Python](https://en.wikipedia.org/wiki/Python_(programming_language))
